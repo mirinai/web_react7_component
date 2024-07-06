@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { useStore } from "./Store";
+import First from "./First";
+import TodoItem from "./components/molecule/TodoItem";
+import AddButton from "./components/atom/AddButton";
+import Body from "./components/organism/Body";
+import { useMediaQuery } from "react-responsive";
+import SecondTablet from "./SecondTablet";
+import SecondPC from "./SecondPC";
 function App() {
+  const { inc } = useStore();
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 769px)",
+  });
+  const isTablet = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <Body />
+        {/* <AddButton /> */}
+      </div>
+      <div>------------------------------------------------</div>
+      <div>
+        {isDesktopOrLaptop && <SecondPC />}
+        {isTablet && <SecondTablet />}
+      </div>
+      <div>------------------------------------------------</div>
+      <div>
+        <h1 className="text-red-300">hello</h1>
+      </div>
+      <button onClick={inc}>버튼</button>
+      <First />
     </div>
   );
 }
